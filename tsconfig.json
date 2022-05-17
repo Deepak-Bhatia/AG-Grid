@@ -21,7 +21,8 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
+    "types" : ["node", "lodash", "express", "zone.js"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

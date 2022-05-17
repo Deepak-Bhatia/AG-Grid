@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ColDef, GridOptions, ICellRendererParams, GridReadyEvent, IDatasource, IGetRowsParams } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
+import { DataSourceService } from './services/data-source.service';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,7 @@ export class AppComponent {
   public rowData!: any[];
 
 @ViewChild('agGrid') agGrid!: AgGridAngular;
-constructor(private http: HttpClient) {
+constructor(private http: HttpClient,private dataSourceService:DataSourceService) {
   this.columnDefs= [
     // this row shows the row index, doesn't use any data from the row
     {
@@ -74,7 +75,21 @@ onGridReady(params: GridReadyEvent) {
   this.gridApi = params.api;
   this.gridColumnApi = params.columnApi;
 
-  this.http
+  var dataSource = {
+    getRows: (params: IGetRowsParams) => {
+      //  TODO: Call a service that fetches list of users
+      console.log("Fetching startRow " + params.startRow + " of " + params.endRow);
+      console.log(params);
+      this.dataSourceService.getUsers(params)
+        .subscribe((data:any) => {
+          console.log(data);
+          params.successCallback(data['users'], data['totalRecords'])
+        });
+    }
+  }
+  this.gridApi!.setDatasource(dataSource);
+
+ /*  this.http
     .get<any[]>('https://www.ag-grid.com/example-assets/olympic-winners.json')
     .subscribe((data:any) => {
       const dataSource: IDatasource = {
@@ -87,11 +102,11 @@ onGridReady(params: GridReadyEvent) {
           // To make the demo look real, wait for 500ms before returning
           setTimeout(function () {
             // take a slice of the total rows
-            const rowsThisPage = data.slice(params.startRow, params.endRow);
+            const rowsThisPage = data.response.slice(params.startRow, params.endRow);
             // if on or after the last page, work out the last row.
             let lastRow = -1;
-            if (data.length <= params.endRow) {
-              lastRow = data.length;
+            if (data.response.length <= params.endRow) {
+              lastRow = data.response.length;
             }
             // call the success callback
             params.successCallback(rowsThisPage, lastRow);
@@ -99,7 +114,7 @@ onGridReady(params: GridReadyEvent) {
         },
       };
       this.gridApi!.setDatasource(dataSource);
-    });
+    }); */
 }
 
 getSelectedRows(): void {
