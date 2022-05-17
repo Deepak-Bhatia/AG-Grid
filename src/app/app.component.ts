@@ -10,7 +10,23 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'ag-grid-demo';
-  public columnDefs: ColDef[] = [
+  gridOptions: Partial<GridOptions>;
+  gridApi:any;
+
+  gridColumnApi:any;
+  columnDefs: ColDef[];
+
+  public defaultColDef: ColDef = {
+    flex: 1,
+    resizable: true,
+    minWidth: 100,
+  };
+
+  public rowData!: any[];
+
+@ViewChild('agGrid') agGrid!: AgGridAngular;
+constructor(private http: HttpClient) {
+  this.columnDefs= [
     // this row shows the row index, doesn't use any data from the row
     {
       checkboxSelection: true,
@@ -27,37 +43,37 @@ export class AppComponent {
         }
       },
     },
-    { field: 'athlete', minWidth: 150 },
-    { field: 'age' },
-    { field: 'country', minWidth: 150 },
-    { field: 'year' },
-    { field: 'date', minWidth: 150 },
-    { field: 'sport', minWidth: 150 },
-    { field: 'gold' },
-    { field: 'silver' },
-    { field: 'bronze' },
-    { field: 'total' },
+    { field: 'athlete', minWidth: 150,sortable: true,filter: 'agTextColumnFilter' },
+    { field: 'age' ,sortable: true,filter: 'agTextColumnFilter'},
+    { field: 'country', minWidth: 150 ,sortable: true,filter: 'agTextColumnFilter'},
+    { field: 'year',sortable: true,filter: 'agTextColumnFilter' },
+    { field: 'date', minWidth: 150 ,sortable: true,filter: 'agTextColumnFilter'},
+    { field: 'sport', minWidth: 150 ,sortable: true,filter: 'agTextColumnFilter'},
+    { field: 'gold' ,sortable: true,filter: 'agTextColumnFilter'},
+    { field: 'silver' ,sortable: true,filter: 'agTextColumnFilter'},
+    { field: 'bronze' ,sortable: true,filter: 'agTextColumnFilter'},
+    { field: 'total' ,sortable: true,filter: 'agTextColumnFilter'},
   ];
-  public defaultColDef: ColDef = {
-    flex: 1,
-    resizable: true,
-    minWidth: 100,
-  };
-  public rowBuffer = 0;
-  public rowSelection = 'multiple';
-  public rowModelType = 'infinite';
-  public cacheBlockSize = 100;
-  public cacheOverflowSize = 2;
-  public maxConcurrentDatasourceRequests = 1;
-  public infiniteInitialRowCount = 1000;
-  public maxBlocksInCache = 10;
-  public rowData!: any[];
 
-@ViewChild('agGrid') agGrid!: AgGridAngular;
-constructor(private http: HttpClient) {
-
+  this.gridOptions = {
+    headerHeight: 45,
+    rowHeight: 30,
+    cacheBlockSize: 50,
+    cacheOverflowSize: 2,
+    maxBlocksInCache:10,
+    paginationPageSize: 50,
+    rowModelType: 'infinite',
+    rowBuffer: 0,
+    rowSelection: 'multiple',
+    maxConcurrentDatasourceRequests: 1,
+    infiniteInitialRowCount: 1000,
+  }
 }
+
 onGridReady(params: GridReadyEvent) {
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi;
+
   this.http
     .get<any[]>('https://www.ag-grid.com/example-assets/olympic-winners.json')
     .subscribe((data:any) => {
@@ -82,7 +98,7 @@ onGridReady(params: GridReadyEvent) {
           }, 500);
         },
       };
-      params.api!.setDatasource(dataSource);
+      this.gridApi!.setDatasource(dataSource);
     });
 }
 
