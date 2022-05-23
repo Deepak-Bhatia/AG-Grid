@@ -35,7 +35,6 @@ export class AppComponent  implements OnInit{
   public defaultColDef: ColDef = {
     flex: 1,
     resizable: true,
-    minWidth: 100,
     floatingFilter: true,
   };
 
@@ -55,7 +54,7 @@ constructor(private http: HttpClient,private dataSourceService:DataSourceService
     rowBuffer: 0,
     rowSelection: 'multiple',
     maxConcurrentDatasourceRequests: 1,
-    infiniteInitialRowCount: 1000,
+    infiniteInitialRowCount: 1000
   }
 }
 
@@ -81,33 +80,34 @@ getGridOptions() : void {
        {
          "SeqNo": "0",
          "ColumnName": "Link1",
-         "DisplayName": "",
+         "DisplayName": "Edit",
          "Visibility": "1",
          "DataType": "Link",
-         "Width" : "20"
+         "Width" : "80"
        },
        {
          "SeqNo": "1",
          "ColumnName": "Link2",
-         "DisplayName": "",
+         "DisplayName": "Delete",
          "Visibility": "1",
          "DataType": "Link",
-         "Width" : "20"
+         "Width" : "80"
        },
        {
          "SeqNo": "2",
          "ColumnName": "Link2",
-         "DisplayName": "",
+         "DisplayName": "Job Completion",
          "Visibility": "1",
          "DataType": "Link",
-         "Width" : "80"
+         "Width" : "150"
        },
        {
          "SeqNo": "3",
          "ColumnName": "NAME1",
          "DisplayName": "",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "Width" : "100"
        },
        {
          "SeqNo": "4",
@@ -261,7 +261,7 @@ getGridOptions() : void {
 
 
   gridOptions.Root.GridDefination.forEach( (x,i)=>{
-  let gridProperties: any = { field: i.toString(), headerName: x.DisplayName , filter: this.getFilter(x.DataType)  , width :  x.Width , minWidth  :  x.Width }
+  let gridProperties: any = { field: i.toString(), headerName: x.DisplayName , filter: this.getFilter(x.DataType)  , width :  x.Width , minWidth  :  x.Width, maxWidth  :  x.Width, resizable: true  }
   if(x.DataType == 'Link' ){
     gridProperties['cellRenderer'] =  (params : any ) => {
       // put the value in bold
@@ -274,6 +274,7 @@ getGridOptions() : void {
       return  `<a href="">Job Completion</a>`;
     }
   }
+  
 
 this.columnDefs.push( gridProperties);
 })
@@ -290,9 +291,9 @@ onGridReady(params: GridReadyEvent) {
   this.gridColumnApi = params.columnApi;
   //params.columnApi.autoSizeAllColumns();
 
-  var allColIds = params?.columnApi?.getAllColumns()?.filter(column=> (column['colId'] =="0" ||  column['colId'] =="1" ||  column['colId'] =="3" )  ) .map(column => column['colId'] );
-  if(allColIds!= undefined)
-    params.columnApi.autoSizeColumns(allColIds);
+  // var allColIds = params?.columnApi?.getAllColumns()?.filter(column=> (column['colId'] =="0" ||  column['colId'] =="1" ||  column['colId'] =="3" )  ) .map(column => column['colId'] );
+  // if(allColIds!= undefined)
+  //   params.columnApi.autoSizeColumns(allColIds);
 
   var dataSource = {
     getRows: (params: IGetRowsParams) => {
@@ -331,7 +332,7 @@ getSelectedRows(): void {
         this.dataSourceService.getUsers(tempParams)
         .subscribe((data:any) => {
           //console.log(data);
-          this.excelService.exportAsExcelFile(data['users'], 'sample');
+          this.excelService.exportAsExcelFile(data['data'], 'sample');
         })
 
       }else{
