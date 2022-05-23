@@ -36,6 +36,7 @@ export class AppComponent {
     flex: 1,
     resizable: true,
     minWidth: 100,
+    floatingFilter: true,
   };
 
   public rowData!: any[];
@@ -90,16 +91,18 @@ constructor(private http: HttpClient,private dataSourceService:DataSourceService
 
 onGridReady(params: GridReadyEvent) {
   this.gridApi = params.api;
+  this.gridApi.setDomLayout("autoHeight");
   this.gridColumnApi = params.columnApi;
 
   var dataSource = {
     getRows: (params: IGetRowsParams) => {
       //  TODO: Call a service that fetches list of users
-      console.log("Fetching startRow " + params.startRow + " of " + params.endRow);
-      console.log(params);
+      //console.log("Fetching startRow " + params.startRow + " of " + params.endRow);
+      //console.log(params);
+
       this.dataSourceService.getUsers(params)
         .subscribe((data:any) => {
-          console.log(data);
+          //console.log(data);
           params.successCallback(data['users'], data['totalRecords'])
         })
     }
@@ -145,8 +148,21 @@ getSelectedRows(): void {
     exportAsXLSX():void {
       //TODO: Calculte Grid Data
       const selectedNodes = this.agGrid.api.getSelectedNodes();
-        const selectedData = selectedNodes.map(node => node.data);
-      this.excelService.exportAsExcelFile(selectedData, 'sample');
+      let data=[];
+      data = selectedNodes.map(node => node.data);
+      //console.log(data);
+      if(data.length == 0){
+
+        let tempParams : any  =  { startRow: 0,  endRow : this.gridApi.rowModel.getTopLevelRowCount() , filterModel : this.agGrid.api.getFilterModel() , sortModel : this.gridApi.sortController.getSortModel()   }
+        this.dataSourceService.getUsers(tempParams)
+        .subscribe((data:any) => {
+          //console.log(data);
+          this.excelService.exportAsExcelFile(data['users'], 'sample');
+        })
+
+      }else{
+        this.excelService.exportAsExcelFile(data, 'sample');
+      }      
    }
 
    selectAll(){
