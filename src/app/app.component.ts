@@ -3,6 +3,7 @@ import { ColDef, GridOptions, ICellRendererParams, GridReadyEvent, IDatasource, 
 import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 import { DataSourceService } from './services/data-source.service';
+import { ExcelService } from './services/excel-service.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,20 @@ import { DataSourceService } from './services/data-source.service';
 })
 export class AppComponent {
   title = 'ag-grid-demo';
+  selectAllNodes = false;
+  data: any = [{
+    eid: 'e101',
+    ename: 'ravi',
+    esal: 1000
+    },{
+    eid: 'e102',
+    ename: 'ram',
+    esal: 2000
+    },{
+    eid: 'e103',
+    ename: 'rajesh',
+    esal: 3000
+    }];
   gridOptions: Partial<GridOptions>;
   gridApi:any;
 
@@ -26,11 +41,13 @@ export class AppComponent {
   public rowData!: any[];
 
 @ViewChild('agGrid') agGrid!: AgGridAngular;
-constructor(private http: HttpClient,private dataSourceService:DataSourceService) {
+constructor(private http: HttpClient,private dataSourceService:DataSourceService,private excelService:ExcelService) {
   this.columnDefs= [
     // this row shows the row index, doesn't use any data from the row
     {
       checkboxSelection: true,
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
       headerName: 'ID',
       maxWidth: 100,
       // it is important to have node.id here, so that when the id changes (which happens
@@ -84,7 +101,7 @@ onGridReady(params: GridReadyEvent) {
         .subscribe((data:any) => {
           console.log(data);
           params.successCallback(data['users'], data['totalRecords'])
-        });
+        })
     }
   }
   this.gridApi!.setDatasource(dataSource);
@@ -124,4 +141,18 @@ getSelectedRows(): void {
 
       alert(`Selected nodes: ${selectedDataStringPresentation}`);
     }
+
+    exportAsXLSX():void {
+      //TODO: Calculte Grid Data
+      const selectedNodes = this.agGrid.api.getSelectedNodes();
+        const selectedData = selectedNodes.map(node => node.data);
+      this.excelService.exportAsExcelFile(selectedData, 'sample');
+   }
+
+   selectAll(){
+     this.selectAllNodes = !this.selectAllNodes;
+    this.gridApi.forEachNode((node:any) => {
+      node.setSelected(this.selectAllNodes);
+    });
+   }
 }
