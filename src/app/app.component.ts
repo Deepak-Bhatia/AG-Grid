@@ -54,7 +54,8 @@ constructor(private http: HttpClient,private dataSourceService:DataSourceService
     rowBuffer: 0,
     rowSelection: 'multiple',
     maxConcurrentDatasourceRequests: 1,
-    infiniteInitialRowCount: 1000
+    infiniteInitialRowCount: 1000,
+
   }
 }
 
@@ -274,7 +275,7 @@ getGridOptions() : void {
       return  `<a href="">Job Completion</a>`;
     }
   }
-  
+
 
 this.columnDefs.push( gridProperties);
 })
@@ -337,7 +338,7 @@ getSelectedRows(): void {
 
       }else{
         this.excelService.exportAsExcelFile(data, 'sample');
-      }      
+      }
 }
 
 selectAll(){
