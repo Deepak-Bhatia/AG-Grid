@@ -6,7 +6,10 @@ import { AppComponent } from './app.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FakeBackendInterceptor } from './http-interceptors/fake-backend.interceptors';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 @NgModule({
   declarations: [
     AppComponent
@@ -15,9 +18,14 @@ import { FakeBackendInterceptor } from './http-interceptors/fake-backend.interce
     BrowserModule,
     AppRoutingModule,
     AgGridModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },],
-  bootstrap: [AppComponent]
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
+    /* {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill',floatLabel:'always'}} */
+  ],
+  bootstrap: [AppComponent],
+  exports:[   ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

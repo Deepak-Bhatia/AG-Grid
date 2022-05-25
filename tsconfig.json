@@ -22,7 +22,8 @@
       "es2020",
       "dom"
     ],
-    "types" : ["node", "lodash", "express", "zone.js"]
+    "types" : ["node", "lodash", "express", "zone.js"],
+    "strictPropertyInitialization": false,
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
