@@ -83,7 +83,8 @@ getGridOptions() : void {
          "DisplayName": "Edit",
          "Visibility": "1",
          "DataType": "Link",
-         "Width" : "80"
+         "Width" : "60",
+         "pinned" : 'left'
        },
        {
          "SeqNo": "1",
@@ -91,7 +92,8 @@ getGridOptions() : void {
          "DisplayName": "Delete",
          "Visibility": "1",
          "DataType": "Link",
-         "Width" : "80"
+         "Width" : "80",
+         "pinned" : 'left'
        },
        {
          "SeqNo": "2",
@@ -99,7 +101,8 @@ getGridOptions() : void {
          "DisplayName": "Job Completion",
          "Visibility": "1",
          "DataType": "Link",
-         "Width" : "150"
+         "Width" : "150",
+         "pinned" : 'left'
        },
        {
          "SeqNo": "3",
@@ -114,91 +117,104 @@ getGridOptions() : void {
          "ColumnName": "WORKSHOP_NO",
          "DisplayName": "Job No.",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "100"
        },
        {
          "SeqNo": "5",
          "ColumnName": "BUILDING_NO",
          "DisplayName": "Priority",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "100"
        },
        {
          "SeqNo": "6",
          "ColumnName": "FILLER",
          "DisplayName": "Type",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "100"
        },
        {
          "SeqNo": "7",
          "ColumnName": "USER_ID",
          "DisplayName": "Line",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "100"
        },
        {
          "SeqNo": "8",
          "ColumnName": "LastUpdatedDate",
          "DisplayName": "Machine Code",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "150"
        },
        {
          "SeqNo": "9",
          "ColumnName": "InsertionDate",
          "DisplayName": "Machine Name",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "150"
        },
        {
          "SeqNo": "10",
          "ColumnName": "LastUpdatedBy",
          "DisplayName": "Occ Date",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "150"
        },
        {
          "SeqNo": "11",
          "ColumnName": "InsertedBy",
          "DisplayName": "Occ Time",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "150"
        },
        {
          "SeqNo": "12",
          "ColumnName": "DisplayDetails",
          "DisplayName": "Tr",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "100"
        },
        {
          "SeqNo": "13",
          "ColumnName": "DisplayDetails",
          "DisplayName":"Job Description",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "150"
        },
        {
          "SeqNo": "14",
          "ColumnName": "DisplayDetails",
          "DisplayName": "Shop",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "100"
        },
        {
          "SeqNo": "15",
          "ColumnName": "DisplayDetails",
          "DisplayName": "Job Initiated By",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "150"
        },
        {
          "SeqNo": "16",
          "ColumnName": "DisplayDetails",
          "DisplayName": "User Id",
          "Visibility": "1",
-         "DataType": "String"
+         "DataType": "String",
+         "minWidth" : "100"
        }
      ],
      "UserGridCustomisation": {
@@ -261,7 +277,7 @@ getGridOptions() : void {
 
 
   gridOptions.Root.GridDefination.forEach( (x,i)=>{
-  let gridProperties: any = { field: i.toString(), headerName: x.DisplayName , filter: this.getFilter(x.DataType)  , width :  x.Width , minWidth  :  x.Width, maxWidth  :  x.Width, resizable: true  }
+  let gridProperties: any = { field: i.toString(), headerName: x.DisplayName , filter: this.getFilter(x.DataType)  , width :  x.Width , minWidth :  x.minWidth ? x.minWidth :x.Width  , maxWidth  :  x.Width, resizable: true , pinned : x.pinned }
   if(x.DataType == 'Link' ){
     gridProperties['cellRenderer'] =  (params : any ) => {
       // put the value in bold
