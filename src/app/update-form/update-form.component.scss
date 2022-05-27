@@ -1,12 +1,17 @@
+.Update-Form {
+  width: 80vw;
+  padding: 10px;
+  margin: auto;
 
+  mat-form-field {
+    width: 90%;
+  }
 
-.Update-Form{
-width:60vw;
-padding:10px;
-margin: auto;
+  button {
+    width: 90%;
+  }
 
-  mat-form-field{
-    width:90%;
-    }
-
+  mat-card{
+    background: #f7f7f7;
+  }
 }

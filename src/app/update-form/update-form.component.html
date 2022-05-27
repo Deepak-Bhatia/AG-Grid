@@ -1,66 +1,255 @@
 <div class="Update-Form">
-  <form [formGroup]="form">
-    <mat-grid-list cols="5" rowHeight="100px">
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput [formControlName]="'name'"/>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>WorkShop No</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Building No</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Filler</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>InsertionDate</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>WorkShop No</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Building No</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>Filler</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field>
-          <mat-label>InsertionDate</mat-label>
-          <input matInput />
-        </mat-form-field>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </form>
+  <mat-card>
+    <mat-card-title> Update User Job </mat-card-title>
+    <form [formGroup]="form">
+      <mat-grid-list cols="5" rowHeight="150px">
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Job Number</mat-label>
+            <input
+              matInput
+              type="number"
+              [formControlName]="UpdateFormControlsEnum.JOB_NUMBER"
+            />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Priority</mat-label>
+            <input
+              matInput
+              type="text"
+              [formControlName]="UpdateFormControlsEnum.PRIORITY"
+            />
+            <mat-error
+              *ngIf="
+                form
+                  .get(UpdateFormControlsEnum.PRIORITY)
+                  ?.hasError('minlength') ||
+                form.get(UpdateFormControlsEnum.PRIORITY)?.hasError('maxlength')
+              "
+            >
+              Minimum 3 char and Maximum 20 char are allowed
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Type</mat-label>
+            <input
+              matInput
+              type="text"
+              [formControlName]="UpdateFormControlsEnum.TYPE"
+            />
+            <mat-error
+              *ngIf="
+                form.get(UpdateFormControlsEnum.TYPE)?.hasError('minlength') ||
+                form.get(UpdateFormControlsEnum.PRIORITY)?.hasError('maxlength')
+              "
+            >
+              Minimum 3 char and Maximum 20 char are allowed
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Line</mat-label>
+            <input
+              matInput
+              type="text"
+              [formControlName]="UpdateFormControlsEnum.LINE"
+            />
+            <mat-error
+              *ngIf="
+                form.get(UpdateFormControlsEnum.LINE)?.hasError('minlength') ||
+                form.get(UpdateFormControlsEnum.PRIORITY)?.hasError('maxlength')
+              "
+            >
+              Minimum 3 char and Maximum 20 char are allowed
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Machine Code</mat-label>
+            <input
+              matInput
+              type="text"
+              [formControlName]="UpdateFormControlsEnum.MACHINE_CODE"
+            />
+            <mat-error
+              *ngIf="
+                form
+                  .get(UpdateFormControlsEnum.MACHINE_CODE)
+                  ?.hasError('minlength') ||
+                form.get(UpdateFormControlsEnum.PRIORITY)?.hasError('maxlength')
+              "
+            >
+              Minimum 3 char and Maximum 20 char are allowed
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Machine Name</mat-label>
+            <input
+              matInput
+              type="text"
+              [formControlName]="UpdateFormControlsEnum.MACHINE_NAME"
+            />
+            <mat-error
+              *ngIf="
+                form
+                  .get(UpdateFormControlsEnum.PRIORITY)
+                  ?.hasError('minlength') ||
+                form.get(UpdateFormControlsEnum.PRIORITY)?.hasError('maxlength')
+              "
+            >
+              Minimum 3 char and Maximum 20 char are allowed
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Occ Date</mat-label>
+            <input
+              matInput
+              type="date"
+              [formControlName]="UpdateFormControlsEnum.OCC_DATE"
+            />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Occ time</mat-label>
+            <input
+              matInput
+              type="time"
+              [formControlName]="UpdateFormControlsEnum.OCC_TIME"
+            />
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Tr</mat-label>
+            <input
+              matInput
+              type="text"
+              [formControlName]="UpdateFormControlsEnum.TR"
+            />
+            <mat-error
+              *ngIf="
+                form.get(UpdateFormControlsEnum.TR)?.hasError('minlength') ||
+                form.get(UpdateFormControlsEnum.PRIORITY)?.hasError('maxlength')
+              "
+            >
+              Minimum 3 char and Maximum 20 char are allowed
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Job Description</mat-label>
+            <input
+              matInput
+              type="text"
+              [formControlName]="UpdateFormControlsEnum.JOB_DESC"
+            />
+            <mat-error
+              *ngIf="
+                form
+                  .get(UpdateFormControlsEnum.JOB_DESC)
+                  ?.hasError('minlength') ||
+                form.get(UpdateFormControlsEnum.PRIORITY)?.hasError('maxlength')
+              "
+            >
+              Minimum 3 char and Maximum 20 char are allowed
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Shop</mat-label>
+            <input
+              matInput
+              type="text"
+              [formControlName]="UpdateFormControlsEnum.SHOP"
+            />
+            <mat-error
+              *ngIf="
+                form.get(UpdateFormControlsEnum.SHOP)?.hasError('minlength') ||
+                form.get(UpdateFormControlsEnum.PRIORITY)?.hasError('maxlength')
+              "
+            >
+              Minimum 3 char and Maximum 20 char are allowed
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>Job Initiated By</mat-label>
+            <input
+              matInput
+              type="text"
+              [formControlName]="UpdateFormControlsEnum.JOB_INITIATED_BY"
+            />
+            <mat-error
+              *ngIf="
+                form
+                  .get(UpdateFormControlsEnum.JOB_INITIATED_BY)
+                  ?.hasError('minlength') ||
+                form.get(UpdateFormControlsEnum.PRIORITY)?.hasError('maxlength')
+              "
+            >
+              Minimum 3 char and Maximum 20 char are allowed
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <mat-label>User Id</mat-label>
+            <input
+              matInput
+              type="text"
+              [formControlName]="UpdateFormControlsEnum.USER_ID"
+            />
+            <mat-error
+              *ngIf="
+                form
+                  .get(UpdateFormControlsEnum.USER_ID)
+                  ?.hasError('minlength') ||
+                form.get(UpdateFormControlsEnum.PRIORITY)?.hasError('maxlength')
+              "
+            >
+              Minimum 3 char and Maximum 20 char are allowed
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <mat-grid-list cols="2" rowHeight="150px">
+        <mat-grid-tile>
+          <button
+            class="submit-btn"
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="update()"
+          >
+            Update
+          </button>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button
+            class="submit-btn"
+            mat-raised-button
+            color="accent"
+            type="button"
+            (click)="update()"
+          >
+            Cancel
+          </button>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </mat-card>
 </div>
