@@ -4,6 +4,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 import { DataSourceService } from '../services/data-source.service';
 import { ExcelService } from '../services/excel-service.service';
+import { ButtonRendererComponent } from '../button-renderer/button-renderer.component';
 
 @Component({
   selector: 'app-custom-grid',
@@ -26,9 +27,10 @@ export class CustomGridComponent implements OnInit {
     ename: 'rajesh',
     esal: 3000
     }];
+  frameworkComponents: any;
   gridOptions: Partial<GridOptions>;
   gridApi:any;
-
+  gridOptionsConfiguration : any ;
   gridColumnApi:any;
   columnDefs: ColDef[] = [];
 
@@ -57,11 +59,14 @@ constructor(private http: HttpClient,private dataSourceService:DataSourceService
     infiniteInitialRowCount: 1000,
 
   }
+
+  this.getGridOptions();
+
 }
 
 
 ngOnInit() {
-  this.getGridOptions();
+
 }
 
 
@@ -75,12 +80,12 @@ getFilter(dataType: string) : any{
 
 getGridOptions() : void {
 
-  let gridOptions= {
+  this.gridOptionsConfiguration= {
    "Root": {
      "GridDefination": [
        {
          "SeqNo": "0",
-         "ColumnName": "Link1",
+         "ColumnName": "Edit",
          "DisplayName": "Edit",
          "Visibility": "1",
          "DataType": "Link",
@@ -89,7 +94,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "1",
-         "ColumnName": "Link2",
+         "ColumnName": "Delete",
          "DisplayName": "Delete",
          "Visibility": "1",
          "DataType": "Link",
@@ -98,7 +103,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "2",
-         "ColumnName": "Link2",
+         "ColumnName": "Job_Completion",
          "DisplayName": "Job Completion",
          "Visibility": "1",
          "DataType": "Link",
@@ -107,7 +112,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "3",
-         "ColumnName": "NAME1",
+         "ColumnName": "XYZ",
          "DisplayName": "",
          "Visibility": "1",
          "DataType": "String",
@@ -115,7 +120,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "4",
-         "ColumnName": "WORKSHOP_NO",
+         "ColumnName": "Job_No.",
          "DisplayName": "Job No.",
          "Visibility": "1",
          "DataType": "String",
@@ -123,7 +128,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "5",
-         "ColumnName": "BUILDING_NO",
+         "ColumnName": "Priority",
          "DisplayName": "Priority",
          "Visibility": "1",
          "DataType": "String",
@@ -131,7 +136,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "6",
-         "ColumnName": "FILLER",
+         "ColumnName": "Type",
          "DisplayName": "Type",
          "Visibility": "1",
          "DataType": "String",
@@ -139,7 +144,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "7",
-         "ColumnName": "USER_ID",
+         "ColumnName": "Line",
          "DisplayName": "Line",
          "Visibility": "1",
          "DataType": "String",
@@ -147,7 +152,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "8",
-         "ColumnName": "LastUpdatedDate",
+         "ColumnName": "Machine_Code",
          "DisplayName": "Machine Code",
          "Visibility": "1",
          "DataType": "String",
@@ -155,7 +160,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "9",
-         "ColumnName": "InsertionDate",
+         "ColumnName": "Machine_Name",
          "DisplayName": "Machine Name",
          "Visibility": "1",
          "DataType": "String",
@@ -163,7 +168,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "10",
-         "ColumnName": "LastUpdatedBy",
+         "ColumnName": "Occ_Date",
          "DisplayName": "Occ Date",
          "Visibility": "1",
          "DataType": "String",
@@ -171,7 +176,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "11",
-         "ColumnName": "InsertedBy",
+         "ColumnName": "Occ_Time",
          "DisplayName": "Occ Time",
          "Visibility": "1",
          "DataType": "String",
@@ -179,7 +184,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "12",
-         "ColumnName": "DisplayDetails",
+         "ColumnName": "Tr",
          "DisplayName": "Tr",
          "Visibility": "1",
          "DataType": "String",
@@ -187,7 +192,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "13",
-         "ColumnName": "DisplayDetails",
+         "ColumnName": "Job_Description",
          "DisplayName":"Job Description",
          "Visibility": "1",
          "DataType": "String",
@@ -195,7 +200,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "14",
-         "ColumnName": "DisplayDetails",
+         "ColumnName": "Shop",
          "DisplayName": "Shop",
          "Visibility": "1",
          "DataType": "String",
@@ -203,7 +208,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "15",
-         "ColumnName": "DisplayDetails",
+         "ColumnName": "Job_Initiated_By",
          "DisplayName": "Job Initiated By",
          "Visibility": "1",
          "DataType": "String",
@@ -211,7 +216,7 @@ getGridOptions() : void {
        },
        {
          "SeqNo": "16",
-         "ColumnName": "DisplayDetails",
+         "ColumnName": "User_Id",
          "DisplayName": "User Id",
          "Visibility": "1",
          "DataType": "String",
@@ -277,30 +282,42 @@ getGridOptions() : void {
   }
 
 
-  gridOptions.Root.GridDefination.forEach( (x,i)=>{
+  this.gridOptionsConfiguration.Root.GridDefination.forEach( (x : any,i :number)=>{
   let gridProperties: any = { field: i.toString(), headerName: x.DisplayName , filter: this.getFilter(x.DataType)  , width :  x.Width , minWidth :  x.minWidth ? x.minWidth :x.Width  , maxWidth  :  x.Width, resizable: true , pinned : x.pinned }
   if(x.DataType == 'Link' ){
-    gridProperties['cellRenderer'] =  (params : any ) => {
-      // put the value in bold
-    console.log(params)
-    if(x.SeqNo=="0")
-      return  `<img style="height: 14px; width: 14px" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4NCjxwYXRoIGQ9Ik03Ny45MjYsOTQuOTI0SDguMjE3QzYuNDQxLDk0LjkyNCw1LDkzLjQ4NCw1LDkxLjcwNlYyMS45OTdjMC0xLjc3NywxLjQ0MS0zLjIxNywzLjIxNy0zLjIxN2gzNC44NTQgYzEuNzc3LDAsMy4yMTcsMS40NDEsMy4yMTcsMy4yMTdzLTEuNDQxLDMuMjE3LTMuMjE3LDMuMjE3SDExLjQzNXY2My4yNzVoNjMuMjc0VjU2Ljg1MWMwLTEuNzc3LDEuNDQxLTMuMjE3LDMuMjE3LTMuMjE3IGMxLjc3NywwLDMuMjE3LDEuNDQxLDMuMjE3LDMuMjE3djM0Ljg1NUM4MS4xNDQsOTMuNDg0LDc5LjcwMyw5NC45MjQsNzcuOTI2LDk0LjkyNHoiLz4NCjxwYXRoIGQ9Ik05NC4wNTksMTYuMDM0TDg0LjAzMiw2LjAxN2MtMS4yNTUtMS4yNTUtMy4yOTItMS4yNTUtNC41NDcsMGwtOS4wNjIsOS4wNzNMMzUuMzk2LDUwLjExNiBjLTAuMjksMC4yOS0wLjUyNSwwLjYzMy0wLjY4NiwxLjAwOGwtNy40OTYsMTcuNTEzYy0wLjUyNiwxLjIxMi0wLjI0NywyLjYxNywwLjY3NiwzLjUzOWMwLjYyMiwwLjYyMiwxLjQzNywwLjk0NCwyLjI3NCwwLjk0NCBjMC40MjksMCwwLjg1OC0wLjA4NiwxLjI3Ni0wLjI1N2wxNy41MTMtNy40OTZjMC4zNzUtMC4xNjEsMC43MTktMC4zOTcsMS4wMDgtMC42ODZsMzUuMDI2LTM1LjAyNmw5LjA3My05LjA2MiBDOTUuMzE0LDE5LjMyNiw5NS4zMTQsMTcuMjg5LDk0LjA1OSwxNi4wMzR6IE0zNi4yODYsNjMuNzlsMi45MjgtNi44MjFsMy44OTMsMy44OTNMMzYuMjg2LDYzLjc5eiBNNDYuOTI1LDU4LjYyMWwtNS40NjktNS40NjkgTDczLjAwNywyMS42bDUuNDcsNS40NjlMNDYuOTI1LDU4LjYyMXogTTgxLjUxMSwyNC4wMzRsLTUuNDY5LTUuNDY5bDUuNzE2LTUuNzE2bDUuNDY5LDUuNDU5TDgxLjUxMSwyNC4wMzR6Ii8+DQo8L3N2Zz4NCg==" />`;
-    else if(x.SeqNo=="1")
-      return  `<img style="height: 14px; width: 14px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABB0lEQVQ4ja3TvUoDURCG4SdLkIAgKUTBQixSWFhrY2klgo14Id6BVTCFNyJWohZWFl6BFyA2CmIh+BM1umORE1nWjRJ1YFj2O+83O2fOHioiWAkugm7Ky2C1iq1VmDNc4wh7SV7HJqZrvBb5ejLVsYVxNDCFHEuJy9FEO3hAF7ufxYK1IEbMjWLbB8FL0Avuf8heYk/Ke98OjqsGVeL2g53Be1ZYe09AIzgPWqloO5hN2kTJ0x9iKTIspGHOpOdY0gZ8XtXBr+LfC4xcsGjIh1LffOTPHZRPIcMbOrjV/y/quEvac2IqT+EJc1jGIVq4wRXmk7aY9McvrQTN4LRwhYflWTA58H0AV8KEqGDAQvwAAAAASUVORK5CYII=" />`;
-    else
-      return  `<a href="">Job Completion</a>`;
-    }
+    gridProperties.cellRenderer =  ButtonRendererComponent
+
+    gridProperties.cellRendererParams = {
+      onClick: this.onBtnClick2.bind(this),
+      label: 'Click 1',
+      buttonHtml :  this.getButtonHtml(x),
+      seqNo : x.SeqNo
+      }
+    
   }
 
 
 this.columnDefs.push( gridProperties);
 })
 
+
 console.log( this.columnDefs);
 
 }
 
 
+getButtonHtml(x: any){
+  if(x.SeqNo=="0")
+  return  `<img  style="height: 14px; width: 14px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAAZiS0dEAP8A/wD/oL2nkwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxNy0wNi0xMlQwMzozNToxMyswODowMHiNd9sAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTYtMDQtMTZUMTY6MDM6MTgrMDg6MDCopvEIAAAAVHRFWHRzdmc6YmFzZS11cmkAZmlsZTovLy9ob21lL2RiL3N2Z19pbmZvL3N2Zy8zOS9kMC8zOWQwY2EzMTY5N2RhMDA2N2NjNmZjMzhlNDJkODQ5ZC5zdmd1nKGwAAABYElEQVQ4T42SsarCQBBFb4KoAQshTRBBJJUgKFjEgGBjK9hbBOxShPxE4hekSCt2/oKFhWApWCjYi2IjklrYtzvuQ6M+eQeGZe7snU1mV2Gc6XSK4/EIRVHwjMhPpxN830elUkG328X1esVmswFc12V8D4WmaSyfz1PkcjnSwjAUvdlgMGDb7Za0er0uVrDhcEjFv2i1WmQoFApst9uxdrt9N85mM7nlnWazSabf6Pf7pJNxMplQ8kqj0UiZLMsi/XA4sIxwfsIwDJzPZ5kBtm1jtVohiiLs93uoUk8xn88RBIHMgE6nQyaB53kolUqfjY7jYDweI45j1Go1LJdLWQH4gGj9aBR3VywWYZom+BSl+oD/5rtRXLAorNdr9Ho9qaYRD4OMzy9GnPQNVVUfxtvtRuJ/SJKEjJlqtYrRaESdstksfeYrQhO1xWJBua7rwOVyYeVyOXXR34JPnPdh7Ae5DvANIdticAAAAABJRU5ErkJggg==" />`;
+  else if(x.SeqNo=="1")
+    return  `<img  style="height: 14px; width: 14px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABB0lEQVQ4ja3TvUoDURCG4SdLkIAgKUTBQixSWFhrY2klgo14Id6BVTCFNyJWohZWFl6BFyA2CmIh+BM1umORE1nWjRJ1YFj2O+83O2fOHioiWAkugm7Ky2C1iq1VmDNc4wh7SV7HJqZrvBb5ejLVsYVxNDCFHEuJy9FEO3hAF7ufxYK1IEbMjWLbB8FL0Avuf8heYk/Ke98OjqsGVeL2g53Be1ZYe09AIzgPWqloO5hN2kTJ0x9iKTIspGHOpOdY0gZ8XtXBr+LfC4xcsGjIh1LffOTPHZRPIcMbOrjV/y/quEvac2IqT+EJc1jGIVq4wRXmk7aY9McvrQTN4LRwhYflWTA58H0AV8KEqGDAQvwAAAAASUVORK5CYII=" />`;
+  else
+    return  `<a >Job Completion</a>`;
+}
+
+onBtnClick2(event:any){
+  console.log(event);
+}
 
 onGridReady(params: GridReadyEvent) {
   this.gridApi = params.api;
@@ -349,12 +366,27 @@ getSelectedRows(): void {
         this.dataSourceService.getUsers(tempParams)
         .subscribe((data:any) => {
           //console.log(data);
-          this.excelService.exportAsExcelFile(data['data'], 'sample');
+          let exportData = this.mapToExportData(data['data']);
+          this.excelService.exportAsExcelFile(exportData, 'Grid');
         })
 
       }else{
-        this.excelService.exportAsExcelFile(data, 'sample');
+        let exportData = this.mapToExportData(data);
+        this.excelService.exportAsExcelFile(exportData, 'Grid');
       }
+}
+
+mapToExportData(data : any[]) : any[] {
+  let exportData : any [] = [];
+  data.forEach( (rowData : any ) => {
+    let exportRowData : any = {};
+    this.gridOptionsConfiguration?.Root?.GridDefination.forEach( ( gridOptions : any ) => {
+      if(gridOptions.DataType !== 'Link')
+        exportRowData[gridOptions.DisplayName] =rowData[gridOptions.SeqNo];
+    });
+    exportData.push(exportRowData);
+  });
+  return exportData;
 }
 
 selectAll(){

@@ -1,10 +1,11 @@
 <button (click)="exportAsXLSX()">Export to Excel</button>
-<button (click)="getSelectedRows()">Get Selected Rows</button>
-<button (click)="selectAll()">Select All</button>
+<!-- <button (click)="getSelectedRows()">Get Selected Rows</button>
+<button (click)="selectAll()">Select All</button> -->
 
 <!-- <ul> <li>Job Transfer</li> <li>Job Cancellation</li> <li>Weekely Checklist</li> <li>Print Job Slip</li>  </ul> -->
 
-<ag-grid-angular
+<div style="padding:20px">
+    <ag-grid-angular
     #agGrid
     class="ag-theme-alpine"
     pagination
@@ -14,5 +15,6 @@
     [gridOptions]="gridOptions"
     (gridReady)="onGridReady($event)"
     [paginationPageSize] ="10"
->
-</ag-grid-angular>
+    >
+    </ag-grid-angular>
+</div>
