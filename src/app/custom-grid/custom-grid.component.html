@@ -1,13 +1,26 @@
-<button (click)="exportAsXLSX()">Export to Excel</button>
+<!-- <button (click)="exportAsXLSX()">Export to Excel</button> -->
 <!-- <button (click)="getSelectedRows()">Get Selected Rows</button>
 <button (click)="selectAll()">Select All</button> -->
 
 <!-- <ul> <li>Job Transfer</li> <li>Job Cancellation</li> <li>Weekely Checklist</li> <li>Print Job Slip</li>  </ul> -->
+<div class="Grid-Container">
+  <div class="Grid-Container-actions">
+    <button
+    class="Grid-Container-actions-export-btn"
+    mat-raised-button
+    color="basic"
+    type="button"
+    (click)="exportAsXLSX()"
+  >
+    Export
+    <mat-icon aria-hidden="false" aria-label="Example home icon">exit_to_app</mat-icon>
+  </button>
 
-<div style="padding:20px">
+  </div>
+  <div>
     <ag-grid-angular
     #agGrid
-    class="ag-theme-alpine"
+    class="ag-theme-blue"
     pagination
     [columnDefs]="columnDefs"
     [defaultColDef]="defaultColDef"
@@ -18,3 +31,5 @@
     >
     </ag-grid-angular>
 </div>
+</div>
+

@@ -1,0 +1,13 @@
+.Grid-Container{
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  &-actions{
+    border: 1px solid #9bc2e6;
+    background-color: #9bc2e6;
+    &-export-btn{
+      background-color: #599ddd;
+      color: #ffffff;
+    }
+  }
+}
