@@ -4,6 +4,7 @@ import { CustomGridComponent } from '../custom-grid/custom-grid.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomGridRoutingModule } from './custom-grid-routing.module';
 import { ButtonRendererComponent } from '../button-renderer/button-renderer.component';
+import { MaterialModule } from '../material.module';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { ButtonRendererComponent } from '../button-renderer/button-renderer.comp
   imports: [
     CommonModule,
     AgGridModule,
+    MaterialModule,
     CustomGridRoutingModule
   ]
 })
