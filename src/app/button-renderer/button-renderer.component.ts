@@ -27,7 +27,7 @@ export class ButtonRendererComponent  implements ICellRendererAngularComp {
   onClick($event:any, seqNo : any) {
     console.log("click");
     if (this.params.onClick instanceof Function) {
-      // put anything into params u want pass into parents component
+      // put anything into params u want pass into the parents component
       const params = {
         event: $event,
         rowData: this.params.node.data,
