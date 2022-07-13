@@ -277,26 +277,26 @@ getGridOptions() : void {
   }
 
 
-  gridOptions.Root.GridDefination.forEach( (x,i)=>{
-  let gridProperties: any = { field: i.toString(), headerName: x.DisplayName , filter: this.getFilter(x.DataType)  , width :  x.Width , minWidth :  x.minWidth ? x.minWidth :x.Width  , maxWidth  :  x.Width, resizable: true , pinned : x.pinned }
-  if(x.DataType == 'Link' ){
-    gridProperties['cellRenderer'] =  (params : any ) => {
-      // put the value in bold
-    console.log(params)
-    if(x.SeqNo=="0")
-      return  `<img style="height: 14px; width: 14px" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4NCjxwYXRoIGQ9Ik03Ny45MjYsOTQuOTI0SDguMjE3QzYuNDQxLDk0LjkyNCw1LDkzLjQ4NCw1LDkxLjcwNlYyMS45OTdjMC0xLjc3NywxLjQ0MS0zLjIxNywzLjIxNy0zLjIxN2gzNC44NTQgYzEuNzc3LDAsMy4yMTcsMS40NDEsMy4yMTcsMy4yMTdzLTEuNDQxLDMuMjE3LTMuMjE3LDMuMjE3SDExLjQzNXY2My4yNzVoNjMuMjc0VjU2Ljg1MWMwLTEuNzc3LDEuNDQxLTMuMjE3LDMuMjE3LTMuMjE3IGMxLjc3NywwLDMuMjE3LDEuNDQxLDMuMjE3LDMuMjE3djM0Ljg1NUM4MS4xNDQsOTMuNDg0LDc5LjcwMyw5NC45MjQsNzcuOTI2LDk0LjkyNHoiLz4NCjxwYXRoIGQ9Ik05NC4wNTksMTYuMDM0TDg0LjAzMiw2LjAxN2MtMS4yNTUtMS4yNTUtMy4yOTItMS4yNTUtNC41NDcsMGwtOS4wNjIsOS4wNzNMMzUuMzk2LDUwLjExNiBjLTAuMjksMC4yOS0wLjUyNSwwLjYzMy0wLjY4NiwxLjAwOGwtNy40OTYsMTcuNTEzYy0wLjUyNiwxLjIxMi0wLjI0NywyLjYxNywwLjY3NiwzLjUzOWMwLjYyMiwwLjYyMiwxLjQzNywwLjk0NCwyLjI3NCwwLjk0NCBjMC40MjksMCwwLjg1OC0wLjA4NiwxLjI3Ni0wLjI1N2wxNy41MTMtNy40OTZjMC4zNzUtMC4xNjEsMC43MTktMC4zOTcsMS4wMDgtMC42ODZsMzUuMDI2LTM1LjAyNmw5LjA3My05LjA2MiBDOTUuMzE0LDE5LjMyNiw5NS4zMTQsMTcuMjg5LDk0LjA1OSwxNi4wMzR6IE0zNi4yODYsNjMuNzlsMi45MjgtNi44MjFsMy44OTMsMy44OTNMMzYuMjg2LDYzLjc5eiBNNDYuOTI1LDU4LjYyMWwtNS40NjktNS40NjkgTDczLjAwNywyMS42bDUuNDcsNS40NjlMNDYuOTI1LDU4LjYyMXogTTgxLjUxMSwyNC4wMzRsLTUuNDY5LTUuNDY5bDUuNzE2LTUuNzE2bDUuNDY5LDUuNDU5TDgxLjUxMSwyNC4wMzR6Ii8+DQo8L3N2Zz4NCg==" />`;
-    else if(x.SeqNo=="1")
-      return  `<img style="height: 14px; width: 14px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABB0lEQVQ4ja3TvUoDURCG4SdLkIAgKUTBQixSWFhrY2klgo14Id6BVTCFNyJWohZWFl6BFyA2CmIh+BM1umORE1nWjRJ1YFj2O+83O2fOHioiWAkugm7Ky2C1iq1VmDNc4wh7SV7HJqZrvBb5ejLVsYVxNDCFHEuJy9FEO3hAF7ufxYK1IEbMjWLbB8FL0Avuf8heYk/Ke98OjqsGVeL2g53Be1ZYe09AIzgPWqloO5hN2kTJ0x9iKTIspGHOpOdY0gZ8XtXBr+LfC4xcsGjIh1LffOTPHZRPIcMbOrjV/y/quEvac2IqT+EJc1jGIVq4wRXmk7aY9McvrQTN4LRwhYflWTA58H0AV8KEqGDAQvwAAAAASUVORK5CYII=" />`;
-    else
-      return  `<a href="">Job Completion</a>`;
-    }
-  }
+//   gridOptions.Root.GridDefination.forEach( (x,i)=>{
+//   let gridProperties: any = { field: i.toString(), headerName: x.DisplayName , filter: this.getFilter(x.DataType)  , width :  x.Width , minWidth :  x.minWidth ? x.minWidth :x.Width  , maxWidth  :  x.Width, resizable: true , pinned : x.pinned }
+//   if(x.DataType == 'Link' ){
+//     gridProperties['cellRenderer'] =  (params : any ) => {
+//       // put the value in bold
+//     console.log(params)
+//     if(x.SeqNo=="0")
+//       return  `<img style="height: 14px; width: 14px" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj4NCjxwYXRoIGQ9Ik03Ny45MjYsOTQuOTI0SDguMjE3QzYuNDQxLDk0LjkyNCw1LDkzLjQ4NCw1LDkxLjcwNlYyMS45OTdjMC0xLjc3NywxLjQ0MS0zLjIxNywzLjIxNy0zLjIxN2gzNC44NTQgYzEuNzc3LDAsMy4yMTcsMS40NDEsMy4yMTcsMy4yMTdzLTEuNDQxLDMuMjE3LTMuMjE3LDMuMjE3SDExLjQzNXY2My4yNzVoNjMuMjc0VjU2Ljg1MWMwLTEuNzc3LDEuNDQxLTMuMjE3LDMuMjE3LTMuMjE3IGMxLjc3NywwLDMuMjE3LDEuNDQxLDMuMjE3LDMuMjE3djM0Ljg1NUM4MS4xNDQsOTMuNDg0LDc5LjcwMyw5NC45MjQsNzcuOTI2LDk0LjkyNHoiLz4NCjxwYXRoIGQ9Ik05NC4wNTksMTYuMDM0TDg0LjAzMiw2LjAxN2MtMS4yNTUtMS4yNTUtMy4yOTItMS4yNTUtNC41NDcsMGwtOS4wNjIsOS4wNzNMMzUuMzk2LDUwLjExNiBjLTAuMjksMC4yOS0wLjUyNSwwLjYzMy0wLjY4NiwxLjAwOGwtNy40OTYsMTcuNTEzYy0wLjUyNiwxLjIxMi0wLjI0NywyLjYxNywwLjY3NiwzLjUzOWMwLjYyMiwwLjYyMiwxLjQzNywwLjk0NCwyLjI3NCwwLjk0NCBjMC40MjksMCwwLjg1OC0wLjA4NiwxLjI3Ni0wLjI1N2wxNy41MTMtNy40OTZjMC4zNzUtMC4xNjEsMC43MTktMC4zOTcsMS4wMDgtMC42ODZsMzUuMDI2LTM1LjAyNmw5LjA3My05LjA2MiBDOTUuMzE0LDE5LjMyNiw5NS4zMTQsMTcuMjg5LDk0LjA1OSwxNi4wMzR6IE0zNi4yODYsNjMuNzlsMi45MjgtNi44MjFsMy44OTMsMy44OTNMMzYuMjg2LDYzLjc5eiBNNDYuOTI1LDU4LjYyMWwtNS40NjktNS40NjkgTDczLjAwNywyMS42bDUuNDcsNS40NjlMNDYuOTI1LDU4LjYyMXogTTgxLjUxMSwyNC4wMzRsLTUuNDY5LTUuNDY5bDUuNzE2LTUuNzE2bDUuNDY5LDUuNDU5TDgxLjUxMSwyNC4wMzR6Ii8+DQo8L3N2Zz4NCg==" />`;
+//     else if(x.SeqNo=="1")
+//       return  `<img style="height: 14px; width: 14px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABB0lEQVQ4ja3TvUoDURCG4SdLkIAgKUTBQixSWFhrY2klgo14Id6BVTCFNyJWohZWFl6BFyA2CmIh+BM1umORE1nWjRJ1YFj2O+83O2fOHioiWAkugm7Ky2C1iq1VmDNc4wh7SV7HJqZrvBb5ejLVsYVxNDCFHEuJy9FEO3hAF7ufxYK1IEbMjWLbB8FL0Avuf8heYk/Ke98OjqsGVeL2g53Be1ZYe09AIzgPWqloO5hN2kTJ0x9iKTIspGHOpOdY0gZ8XtXBr+LfC4xcsGjIh1LffOTPHZRPIcMbOrjV/y/quEvac2IqT+EJc1jGIVq4wRXmk7aY9McvrQTN4LRwhYflWTA58H0AV8KEqGDAQvwAAAAASUVORK5CYII=" />`;
+//     else
+//       return  `<a href="">Job Completion</a>`;
+//     }
+//   }
 
 
-this.columnDefs.push( gridProperties);
-})
+// this.columnDefs.push( gridProperties);
+// })
 
-console.log( this.columnDefs);
+//console.log( this.columnDefs);
 
 }
 

@@ -3,10 +3,11 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   OnDestroy,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UpdateFormControlsEnum } from '../enums/form-controls.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-form',
@@ -20,7 +21,8 @@ export class UpdateFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private dataShareService: DataShareService
+    private dataShareService: DataShareService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -105,4 +107,12 @@ export class UpdateFormComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.dataToUpdate = undefined;
   }
+
+  
+  cancel(): void {
+    this.router.navigate(['grid']);
+  }
+
+
+
 }

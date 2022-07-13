@@ -51,6 +51,7 @@ export class CustomGridComponent implements OnInit {
     flex: 1,
     resizable: true,
     floatingFilter: true,
+    sortable: true
   };
 
   public rowData!: any[];
@@ -85,238 +86,231 @@ export class CustomGridComponent implements OnInit {
   getFilter(dataType: string): any {
     if (dataType == 'Link') return false;
     else if (dataType == 'String') return 'agTextColumnFilter';
+    else if (dataType == 'Date') return 'agDateColumnFilter';
+    else if (dataType == 'Number') return 'agNumberColumnFilter';
   }
 
   getGridOptions(): void {
-    this.gridOptionsConfiguration = {
-      Root: {
-        GridDefination: [
-          {
-            SeqNo: '0',
-            ColumnName: 'Edit',
-            DisplayName: 'Edit',
-            Visibility: '1',
-            DataType: 'Link',
-            Width: '60',
-            pinned: 'left',
-          },
-          {
-            SeqNo: '1',
-            ColumnName: 'Delete',
-            DisplayName: 'Delete',
-            Visibility: '1',
-            DataType: 'Link',
-            Width: '80',
-            pinned: 'left',
-          },
-          {
-            SeqNo: '2',
-            ColumnName: 'Job_Completion',
-            DisplayName: 'Job Completion',
-            Visibility: '1',
-            DataType: 'Link',
-            Width: '150',
-            pinned: 'left',
-          },
-          {
-            SeqNo: '3',
-            ColumnName: 'XYZ',
-            DisplayName: '',
-            Visibility: '1',
-            DataType: 'String',
-            Width: '100',
-          },
-          {
-            SeqNo: '4',
-            ColumnName: 'Job_No.',
-            DisplayName: 'Job No.',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '100',
-          },
-          {
-            SeqNo: '5',
-            ColumnName: 'Priority',
-            DisplayName: 'Priority',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '100',
-          },
-          {
-            SeqNo: '6',
-            ColumnName: 'Type',
-            DisplayName: 'Type',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '100',
-          },
-          {
-            SeqNo: '7',
-            ColumnName: 'Line',
-            DisplayName: 'Line',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '100',
-          },
-          {
-            SeqNo: '8',
-            ColumnName: 'Machine_Code',
-            DisplayName: 'Machine Code',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '150',
-          },
-          {
-            SeqNo: '9',
-            ColumnName: 'Machine_Name',
-            DisplayName: 'Machine Name',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '150',
-          },
-          {
-            SeqNo: '10',
-            ColumnName: 'Occ_Date',
-            DisplayName: 'Occ Date',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '150',
-          },
-          {
-            SeqNo: '11',
-            ColumnName: 'Occ_Time',
-            DisplayName: 'Occ Time',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '150',
-          },
-          {
-            SeqNo: '12',
-            ColumnName: 'Tr',
-            DisplayName: 'Tr',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '100',
-          },
-          {
-            SeqNo: '13',
-            ColumnName: 'Job_Description',
-            DisplayName: 'Job Description',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '150',
-          },
-          {
-            SeqNo: '14',
-            ColumnName: 'Shop',
-            DisplayName: 'Shop',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '100',
-          },
-          {
-            SeqNo: '15',
-            ColumnName: 'Job_Initiated_By',
-            DisplayName: 'Job Initiated By',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '150',
-          },
-          {
-            SeqNo: '16',
-            ColumnName: 'User_Id',
-            DisplayName: 'User Id',
-            Visibility: '1',
-            DataType: 'String',
-            minWidth: '100',
-          },
-        ],
-        UserGridCustomisation: {
-          Visibility: '0,1,2,3,4,5,6,7,8,9,10,11,12,',
-          Sequence: '0,1,2,3,4,5,6,7,8,9,10,11,12',
-        },
-        url_col_Click: {
-          cols: [
-            {
-              colums_no: '1',
-              type: 'function',
-              action: 'functionname',
-              Target: 'blank',
-              params: [
-                {
-                  key: 'key',
-                  value: 'value',
-                },
-                {
-                  key: 'key',
-                  value: 'value',
-                },
-              ],
-            },
-            {
-              colums_no: '2',
-              type: 'link',
-              action: 'link',
-              Target: 'blank',
-              params: [
-                {
-                  key: 'key',
-                  value: 'value',
-                },
-                {
-                  key: 'key',
-                  value: 'value',
-                },
-              ],
-            },
-          ],
-        },
-        SearchType: 'multiple/single',
-        apidata: {
-          apiurl: 'https://jsonplaceholder.typicode.com/posts',
-          apiparams: [
-            {
-              key: 'key',
-              value: 'value',
-            },
-            {
-              key: 'key',
-              value: 'value',
-            },
-          ],
-        },
-        userId: 'userId',
-      },
-    };
+    // this.gridOptionsConfiguration = {
+    //   Root: {
+    //     GridDefination: [
+    //       {
+    //         ColumnName: 'Edit',
+    //         DisplayName: 'Edit',
+    //         Visibility: '1',
+    //         DataType: 'Link',
+    //         Width: '60',
+    //         pinned: 'left',
+    //       },
+    //       {
+    //         ColumnName: 'Delete',
+    //         DisplayName: 'Delete',
+    //         Visibility: '1',
+    //         DataType: 'Link',
+    //         Width: '80',
+    //         pinned: 'left',
+    //       },
+    //       {
+    //         ColumnName: 'Job_Completion',
+    //         DisplayName: 'Job Completion',
+    //         Visibility: '1',
+    //         DataType: 'Link',
+    //         Width: '150',
+    //         pinned: 'left',
+    //       },
+    //       {
+    //         ColumnName: 'XYZ',
+    //         DisplayName: '',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         Width: '100',
+    //       },
+    //       {
+    //         ColumnName: 'Job_No.',
+    //         DisplayName: 'Job No.',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         minWidth: '100',
+    //       },
+    //       {
+    //         ColumnName: 'Priority',
+    //         DisplayName: 'Priority',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         minWidth: '100',
+    //       },
+    //       {
+    //         ColumnName: 'Type',
+    //         DisplayName: 'Type',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         minWidth: '100',
+    //       },
+    //       {
+    //         ColumnName: 'Line',
+    //         DisplayName: 'Line',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         minWidth: '100',
+    //       },
+    //       {
+    //         ColumnName: 'Machine_Code',
+    //         DisplayName: 'Machine Code',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         minWidth: '150',
+    //       },
+    //       {
+    //         ColumnName: 'Machine_Name',
+    //         DisplayName: 'Machine Name',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         minWidth: '150',
+    //       },
+    //       {
+    //         ColumnName: 'Occ_Date',
+    //         DisplayName: 'Occ Date',
+    //         Visibility: '1',
+    //         DataType: 'Date',
+    //         minWidth: '150',
+    //       },
+    //       {
+    //         ColumnName: 'Occ_Time',
+    //         DisplayName: 'Occ Time',
+    //         Visibility: '1',
+    //         DataType: 'Text',
+    //         minWidth: '150',
+    //       },
+    //       {
+    //         ColumnName: 'Tr',
+    //         DisplayName: 'Tr',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         minWidth: '100',
+    //       },
+    //       {
+    //         ColumnName: 'Job_Description',
+    //         DisplayName: 'Job Description',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         minWidth: '150',
+    //       },
+    //       {
+    //         ColumnName: 'Shop',
+    //         DisplayName: 'Shop',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         minWidth: '100',
+    //       },
+    //       {
+    //         ColumnName: 'Job_Initiated_By',
+    //         DisplayName: 'Job Initiated By',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         minWidth: '150',
+    //       },
+    //       {
+    //         ColumnName: 'User_Id',
+    //         DisplayName: 'User Id',
+    //         Visibility: '1',
+    //         DataType: 'String',
+    //         minWidth: '100',
+    //       },
+    //     ],
+    //     UserGridCustomisation: {
+    //       Visibility: '0,1,2,3,4,5,6,7,8,9,10,11,12,',
+    //       Sequence: '0,1,2,3,4,5,6,7,8,9,10,11,12',
+    //     },
+    //     url_col_Click: {
+    //       cols: [
+    //         {
+    //           colums_no: '1',
+    //           type: 'function',
+    //           action: 'functionname',
+    //           Target: 'blank',
+    //           params: [
+    //             {
+    //               key: 'key',
+    //               value: 'value',
+    //             },
+    //             {
+    //               key: 'key',
+    //               value: 'value',
+    //             },
+    //           ],
+    //         },
+    //         {
+    //           colums_no: '2',
+    //           type: 'link',
+    //           action: 'link',
+    //           Target: 'blank',
+    //           params: [
+    //             {
+    //               key: 'key',
+    //               value: 'value',
+    //             },
+    //             {
+    //               key: 'key',
+    //               value: 'value',
+    //             },
+    //           ],
+    //         },
+    //       ],
+    //     },
+    //     SearchType: 'multiple/single',
+    //     apidata: {
+    //       apiurl: 'https://jsonplaceholder.typicode.com/posts',
+    //       apiparams: [
+    //         {
+    //           key: 'key',
+    //           value: 'value',
+    //         },
+    //         {
+    //           key: 'key',
+    //           value: 'value',
+    //         },
+    //       ],
+    //     },
+    //     userId: 'userId',
+    //   },
+    // };
 
-    this.gridOptionsConfiguration.Root.GridDefination.forEach(
-      (x: any, i: number) => {
-        let gridProperties: any = {
-          field: i.toString(),
-          headerName: x.DisplayName,
-          filter: this.getFilter(x.DataType),
-          width: x.Width,
-          minWidth: x.minWidth ? x.minWidth : x.Width,
-          maxWidth: x.Width,
-          resizable: true,
-          pinned: x.pinned,
-        };
-        if (x.DataType == 'Link') {
-          gridProperties.cellRenderer = ButtonRendererComponent;
+    this.dataSourceService.getGridOptions().subscribe((data: any) => {
+      this.gridOptionsConfiguration= data ;
+      //console.log(data);
+      this.gridOptionsConfiguration.Root.GridDefination.forEach(
+        (x: any, i: number) => {
 
-          gridProperties.cellRendererParams = {
-            onClick: this.onBtnClick2.bind(this),
-            label: 'Click 1',
-            buttonHtml: this.getButtonHtml(x),
-            seqNo: x.SeqNo,
+          if (i<23 || i>23)
+            return;
+
+          let gridProperties: any = {
+            field: x.ColumnName,
+            headerName: x.DisplayName,
+            filter: this.getFilter(x.DataType),
+            width: x.Width,
+            minWidth: x.minWidth ? x.minWidth : x.Width,
+            maxWidth: x.Width,
+            resizable: true,
+            pinned: x.pinned,
           };
+          if (x.DataType == 'Link') {
+            gridProperties.cellRenderer = ButtonRendererComponent;
+  
+            gridProperties.cellRendererParams = {
+              onClick: this.onBtnClick2.bind(this),
+              label: 'Click 1',
+              buttonHtml: this.getButtonHtml(x),
+              seqNo: x.SeqNo,
+            };
+          }
+  
+          this.columnDefs.push(gridProperties);
         }
+      );
+      console.log('Column Def Final' ,this.columnDefs);
 
-        this.columnDefs.push(gridProperties);
-      }
-    );
-
-    console.log(this.columnDefs);
+    })
   }
 
   getButtonHtml(x: any) {
@@ -350,8 +344,8 @@ export class CustomGridComponent implements OnInit {
         //console.log(params);
 
         this.dataSourceService.getUsers(params).subscribe((data: any) => {
-          //console.log(data);
-          params.successCallback(data['data'], data['iTotalRecords']);
+          console.log( 'table Data', data['Table'], data['Table'][0].TotalRows  );
+          params.successCallback(data['Table'], data['Table'][0].TotalRows );
         });
       },
     };
@@ -383,8 +377,8 @@ export class CustomGridComponent implements OnInit {
       };
       this.dataSourceService.getUsers(tempParams).subscribe((data: any) => {
         //console.log(data);
-        let exportData = this.mapToExportData(data['data']);
-        this.excelService.exportAsExcelFile(exportData, 'Grid');
+        //let exportData = this.mapToExportData(data['data']);
+        this.excelService.exportAsExcelFile(data['data'], 'Grid');
       });
     } else {
       let exportData = this.mapToExportData(data);
