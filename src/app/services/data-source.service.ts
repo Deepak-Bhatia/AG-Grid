@@ -17,36 +17,36 @@ getUsers(params:any) {
 
    console.log("Grid params", params)
 
-  //  let body ={
-  //   "oprFlg": "Grid",
-  //   "isGroupLevelEntry": "0",
-  //   "levelId": "0",
-  //   "groupId": "0",
-  //   "productionDivision": "",
-  //   "channel": "",
-  //   "viewAllJob": "",
-  //   "jobNo": "",
-  //   "priority": "",
-  //   "jobType": "",
-  //   "machine": "",
-  //   "machineName": "",
-  //   "startDate": "",
-  //   "startTime": "",
-  //   "tradeDept": "",
-  //   "complaint": "",
-  //   "orderBy": "",
-  //   "responsibility": "All",
-  //   "showBreakDownTypeJob": "",
-  //   "selectAll": "All",
-  //   "pDate": "",
-  //   "toplantdept": "",
-  //   "userid": "",
-  //   "showAsOnDate": "",
-  //   "iDisplayLength": params.endRow -  params.startRow  ,
-  //   "iDisplayStart": params.startRow ,
-  //   "whereClause": Object.keys(  params.filterModel ).length == 0 ?  "" :  JSON.stringify( params.filterModel ),
-  //   "orderByClause": params.sortModel.length == 0 ? "" :  JSON.stringify( params.sortModel )
-  // }
+   let body1 ={
+    "oprFlg": "Grid",
+    "isGroupLevelEntry": "0",
+    "levelId": "0",
+    "groupId": "0",
+    "productionDivision": "",
+    "channel": "",
+    "viewAllJob": "",
+    "jobNo": "",
+    "priority": "",
+    "jobType": "",
+    "machine": "",
+    "machineName": "",
+    "startDate": "",
+    "startTime": "",
+    "tradeDept": "",
+    "complaint": "",
+    "orderBy": "",
+    "responsibility": "All",
+    "showBreakDownTypeJob": "",
+    "selectAll": "All",
+    "pDate": "",
+    "toplantdept": "",
+    "userid": "",
+    "showAsOnDate": "",
+    "iDisplayLength": params.endRow -  params.startRow  ,
+    "iDisplayStart": params.startRow ,
+    "whereClause": Object.keys(  params.filterModel ).length == 0 ?  "" :  JSON.stringify( params.filterModel ),
+    "orderByClause": params.sortModel.length == 0 ? "" :  JSON.stringify( params.sortModel )
+  }
 
 
   let body ={
@@ -77,9 +77,9 @@ getUsers(params:any) {
     "iDisplayLength": params.endRow -  params.startRow  ,
     "iDisplayStart": params.startRow ,
     "whereClause": "",
-    "orderByClause": ""
+    "orderByClause": "order by JobNo"
   }
-  console.log(JSON.stringify( body ))
+  console.log(JSON.stringify( body1 ))
   return this.http.post('http://14.143.45.236:97/api/GetPendingJobGridData', body);
   //return this.dummyData;
 
