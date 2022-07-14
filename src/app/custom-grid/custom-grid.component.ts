@@ -14,6 +14,7 @@ import { ExcelService } from '../services/excel-service.service';
 import { ButtonRendererComponent } from '../button-renderer/button-renderer.component';
 import { DataShareService } from '../services/data-share.service';
 import { Router } from '@angular/router';
+import { xor } from 'lodash';
 
 @Component({
   selector: 'app-custom-grid',
@@ -91,199 +92,19 @@ export class CustomGridComponent implements OnInit {
   }
 
   getGridOptions(): void {
-    // this.gridOptionsConfiguration = {
-    //   Root: {
-    //     GridDefination: [
-    //       {
-    //         ColumnName: 'Edit',
-    //         DisplayName: 'Edit',
-    //         Visibility: '1',
-    //         DataType: 'Link',
-    //         Width: '60',
-    //         pinned: 'left',
-    //       },
-    //       {
-    //         ColumnName: 'Delete',
-    //         DisplayName: 'Delete',
-    //         Visibility: '1',
-    //         DataType: 'Link',
-    //         Width: '80',
-    //         pinned: 'left',
-    //       },
-    //       {
-    //         ColumnName: 'Job_Completion',
-    //         DisplayName: 'Job Completion',
-    //         Visibility: '1',
-    //         DataType: 'Link',
-    //         Width: '150',
-    //         pinned: 'left',
-    //       },
-    //       {
-    //         ColumnName: 'XYZ',
-    //         DisplayName: '',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         Width: '100',
-    //       },
-    //       {
-    //         ColumnName: 'Job_No.',
-    //         DisplayName: 'Job No.',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         minWidth: '100',
-    //       },
-    //       {
-    //         ColumnName: 'Priority',
-    //         DisplayName: 'Priority',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         minWidth: '100',
-    //       },
-    //       {
-    //         ColumnName: 'Type',
-    //         DisplayName: 'Type',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         minWidth: '100',
-    //       },
-    //       {
-    //         ColumnName: 'Line',
-    //         DisplayName: 'Line',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         minWidth: '100',
-    //       },
-    //       {
-    //         ColumnName: 'Machine_Code',
-    //         DisplayName: 'Machine Code',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         minWidth: '150',
-    //       },
-    //       {
-    //         ColumnName: 'Machine_Name',
-    //         DisplayName: 'Machine Name',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         minWidth: '150',
-    //       },
-    //       {
-    //         ColumnName: 'Occ_Date',
-    //         DisplayName: 'Occ Date',
-    //         Visibility: '1',
-    //         DataType: 'Date',
-    //         minWidth: '150',
-    //       },
-    //       {
-    //         ColumnName: 'Occ_Time',
-    //         DisplayName: 'Occ Time',
-    //         Visibility: '1',
-    //         DataType: 'Text',
-    //         minWidth: '150',
-    //       },
-    //       {
-    //         ColumnName: 'Tr',
-    //         DisplayName: 'Tr',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         minWidth: '100',
-    //       },
-    //       {
-    //         ColumnName: 'Job_Description',
-    //         DisplayName: 'Job Description',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         minWidth: '150',
-    //       },
-    //       {
-    //         ColumnName: 'Shop',
-    //         DisplayName: 'Shop',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         minWidth: '100',
-    //       },
-    //       {
-    //         ColumnName: 'Job_Initiated_By',
-    //         DisplayName: 'Job Initiated By',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         minWidth: '150',
-    //       },
-    //       {
-    //         ColumnName: 'User_Id',
-    //         DisplayName: 'User Id',
-    //         Visibility: '1',
-    //         DataType: 'String',
-    //         minWidth: '100',
-    //       },
-    //     ],
-    //     UserGridCustomisation: {
-    //       Visibility: '0,1,2,3,4,5,6,7,8,9,10,11,12,',
-    //       Sequence: '0,1,2,3,4,5,6,7,8,9,10,11,12',
-    //     },
-    //     url_col_Click: {
-    //       cols: [
-    //         {
-    //           colums_no: '1',
-    //           type: 'function',
-    //           action: 'functionname',
-    //           Target: 'blank',
-    //           params: [
-    //             {
-    //               key: 'key',
-    //               value: 'value',
-    //             },
-    //             {
-    //               key: 'key',
-    //               value: 'value',
-    //             },
-    //           ],
-    //         },
-    //         {
-    //           colums_no: '2',
-    //           type: 'link',
-    //           action: 'link',
-    //           Target: 'blank',
-    //           params: [
-    //             {
-    //               key: 'key',
-    //               value: 'value',
-    //             },
-    //             {
-    //               key: 'key',
-    //               value: 'value',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //     SearchType: 'multiple/single',
-    //     apidata: {
-    //       apiurl: 'https://jsonplaceholder.typicode.com/posts',
-    //       apiparams: [
-    //         {
-    //           key: 'key',
-    //           value: 'value',
-    //         },
-    //         {
-    //           key: 'key',
-    //           value: 'value',
-    //         },
-    //       ],
-    //     },
-    //     userId: 'userId',
-    //   },
-    // };
 
     this.dataSourceService.getGridOptions().subscribe((data: any) => {
       this.gridOptionsConfiguration= data ;
       //console.log(data);
+      let gridPropertiesList  : any[]  =[];
       this.gridOptionsConfiguration.Root.GridDefination.forEach(
         (x: any, i: number) => {
 
-          if (i<23 || i>23)
-            return;
-
+          
+        if( x.ColumnName == 'RowNumber' ||   x.ColumnName =='TotalRows' || x.ColumnName =="TotalDisplayRows" ){
+          return;
+        }
+          
           let gridProperties: any = {
             field: x.ColumnName,
             headerName: x.DisplayName,
@@ -305,9 +126,12 @@ export class CustomGridComponent implements OnInit {
             };
           }
   
-          this.columnDefs.push(gridProperties);
+          gridPropertiesList.push(gridProperties);
         }
+
       );
+
+      this.columnDefs = gridPropertiesList;
       console.log('Column Def Final' ,this.columnDefs);
 
     })
