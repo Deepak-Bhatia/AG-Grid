@@ -52,7 +52,7 @@ export class CustomGridComponent implements OnInit {
     flex: 1,
     resizable: true,
     floatingFilter: true,
-    sortable: true
+    sortable: true,
   };
 
   public rowData!: any[];
@@ -92,19 +92,20 @@ export class CustomGridComponent implements OnInit {
   }
 
   getGridOptions(): void {
-
     this.dataSourceService.getGridOptions().subscribe((data: any) => {
-      this.gridOptionsConfiguration= data ;
+      this.gridOptionsConfiguration = data;
       //console.log(data);
-      let gridPropertiesList  : any[]  =[];
+      let gridPropertiesList: any[] = [];
       this.gridOptionsConfiguration.Root.GridDefination.forEach(
         (x: any, i: number) => {
+          if (
+            x.ColumnName == 'RowNumber' ||
+            x.ColumnName == 'TotalRows' ||
+            x.ColumnName == 'TotalDisplayRows'
+          ) {
+            return;
+          }
 
-          
-        if( x.ColumnName == 'RowNumber' ||   x.ColumnName =='TotalRows' || x.ColumnName =="TotalDisplayRows" ){
-          return;
-        }
-          
           let gridProperties: any = {
             field: x.ColumnName,
             headerName: x.DisplayName,
@@ -117,7 +118,7 @@ export class CustomGridComponent implements OnInit {
           };
           if (x.DataType == 'Link') {
             gridProperties.cellRenderer = ButtonRendererComponent;
-  
+
             gridProperties.cellRendererParams = {
               onClick: this.onBtnClick2.bind(this),
               label: 'Click 1',
@@ -125,16 +126,14 @@ export class CustomGridComponent implements OnInit {
               seqNo: x.SeqNo,
             };
           }
-  
+
           gridPropertiesList.push(gridProperties);
         }
-
       );
 
       this.columnDefs = gridPropertiesList;
-      console.log('Column Def Final' ,this.columnDefs);
-
-    })
+      console.log('Column Def Final', this.columnDefs);
+    });
   }
 
   getButtonHtml(x: any) {
@@ -155,21 +154,10 @@ export class CustomGridComponent implements OnInit {
     this.gridApi = params.api;
     this.gridApi.setDomLayout('autoHeight');
     this.gridColumnApi = params.columnApi;
-    //params.columnApi.autoSizeAllColumns();
-
-    // var allColIds = params?.columnApi?.getAllColumns()?.filter(column=> (column['colId'] =="0" ||  column['colId'] =="1" ||  column['colId'] =="3" )  ) .map(column => column['colId'] );
-    // if(allColIds!= undefined)
-    //   params.columnApi.autoSizeColumns(allColIds);
-
-    var dataSource = {
+    const dataSource = {
       getRows: (params: IGetRowsParams) => {
-        //  TODO: Call a service that fetches list of users
-        //console.log("Fetching startRow " + params.startRow + " of " + params.endRow);
-        //console.log(params);
-
         this.dataSourceService.getUsers(params).subscribe((data: any) => {
-          console.log( 'table Data', data['Table'], data['Table'][0].TotalRows  );
-          params.successCallback(data['Table'], data['Table'][0].TotalRows );
+          params.successCallback(data.records, data.totalRecords);
         });
       },
     };
