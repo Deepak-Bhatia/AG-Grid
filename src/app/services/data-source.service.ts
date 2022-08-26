@@ -40,12 +40,8 @@ export class DataSourceService {
       showAsOnDate: '',
       iDisplayLength: params.endRow - params.startRow,
       iDisplayStart: params.startRow,
-      whereClause:
-        Object.keys(params.filterModel).length == 0
-          ? ''
-          : JSON.stringify(params.filterModel),
-      orderByClause:
-        params.sortModel.length == 0 ? '' : JSON.stringify(params.sortModel),
+      whereClause: JSON.stringify(params.filterModel),
+      orderByClause: JSON.stringify(params.sortModel),
     };
 
     let body = {
@@ -80,12 +76,12 @@ export class DataSourceService {
     };
     console.log(JSON.stringify(body1));
     return this.http
-      .post(`${environment.apiEndPoint}/api/GetPendingJobGridData`, body)
+      .post(`${environment.apiEndPoint}/api/GetPendingJobGridData`, body1)
       .pipe(
         map((response: any) => {
           return {
             records: response.Table,
-            totalRecords: response.Table[0].TotalRows,
+            totalRecords: response.Table[0]?.TotalDisplayRows  == undefined ? 0 : response.Table[0]?.TotalDisplayRows  ,
           };
         })
       );

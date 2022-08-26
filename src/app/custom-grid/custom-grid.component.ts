@@ -78,11 +78,16 @@ export class CustomGridComponent implements OnInit {
       maxConcurrentDatasourceRequests: 1,
       infiniteInitialRowCount: 1000,
     };
-
     this.getGridOptions();
   }
 
-  ngOnInit() {}
+  // public overlayLoadingTemplate =
+  // '<span class="ag-overlay-loading-center">Loading...</span>';
+  // public overlayNoRowsTemplate =
+  // '<span style="padding: 10px; border: 2px solid #444; background: lightgoldenrodyellow;">This is a custom \'no rows\' overlay</span>'
+
+  ngOnInit() {
+  }
 
   getFilter(dataType: string): any {
     if (dataType == 'Link') return false;
@@ -109,7 +114,8 @@ export class CustomGridComponent implements OnInit {
           let gridProperties: any = {
             field: x.ColumnName,
             headerName: x.DisplayName,
-            filter: this.getFilter(x.DataType),
+            //filter: this.getFilter(  x.ColumnName == "Shift" ? "Number" :x.DataType  ),
+            filter: this.getFilter(  x.ColumnName == "OccDate" ? "Date" :x.DataType  ),
             width: x.Width,
             minWidth: x.minWidth ? x.minWidth : x.Width,
             maxWidth: x.Width,
@@ -124,6 +130,7 @@ export class CustomGridComponent implements OnInit {
               label: 'Click 1',
               buttonHtml: this.getButtonHtml(x),
               seqNo: x.SeqNo,
+              callUrl :  x.CallUrl
             };
           }
 
@@ -156,8 +163,16 @@ export class CustomGridComponent implements OnInit {
     this.gridColumnApi = params.columnApi;
     const dataSource = {
       getRows: (params: IGetRowsParams) => {
+        setTimeout(() => {
+          this.gridApi.showLoadingOverlay();
+       }, 0);
         this.dataSourceService.getUsers(params).subscribe((data: any) => {
           params.successCallback(data.records, data.totalRecords);
+          if(data.totalRecords ==0)
+            this.gridApi.showNoRowsOverlay();
+          else{
+            this.gridApi.hideOverlay();
+          }
         });
       },
     };
@@ -172,6 +187,10 @@ export class CustomGridComponent implements OnInit {
       .join(', ');
 
     alert(`Selected nodes: ${selectedDataStringPresentation}`);
+  }
+
+  DeletePendingJob(){
+    console.log("Delete pending job")
   }
 
   exportAsXLSX(): void {
@@ -190,7 +209,7 @@ export class CustomGridComponent implements OnInit {
       this.dataSourceService.getUsers(tempParams).subscribe((data: any) => {
         //console.log(data);
         //let exportData = this.mapToExportData(data['data']);
-        this.excelService.exportAsExcelFile(data['data'], 'Grid');
+        this.excelService.exportAsExcelFile(data['records'], 'Grid');
       });
     } else {
       let exportData = this.mapToExportData(data);

@@ -12,12 +12,14 @@ export class ButtonRendererComponent  implements ICellRendererAngularComp {
   label: string;
   htmlString : string ;
   seqNo : string;
+  callUrl: string ;
 
   agInit(params:any): void {
     this.params = params;
     this.label = this.params.label || null;
     this.htmlString = this.params.buttonHtml || null;
     this.seqNo = this.params.seqNo || null;
+    this.callUrl = this.params.callUrl || null;
   }
 
   refresh(params?: any): boolean {
@@ -26,17 +28,31 @@ export class ButtonRendererComponent  implements ICellRendererAngularComp {
 
   onClick($event:any, seqNo : any) {
     console.log("click");
-    if (this.params.onClick instanceof Function) {
-      // put anything into params u want pass into the parents component
-      const params = {
-        event: $event,
-        rowData: this.params.node.data,
-        seqNo: seqNo
-        // ...something
-      }
-      this.params.onClick(params);
 
+    if( this.callUrl.indexOf('javascript') > -1){
+      let methodName = this.callUrl.replace("javascript:",'');
+      const F = new Function(methodName);  
+      F();
+    }else{
+      if (this.params.onClick instanceof Function) {
+        // put anything into params u want pass into the parents component
+        const params = {
+          event: $event,
+          rowData: this.params.node.data,
+          seqNo: seqNo,
+          // ...something
+        }
+        console.log(params);
+        this.params.onClick(params);
+  
+      }
     }
+
+    
+  }
+
+  DeletePendingJob(){
+    console.log("Delete pending job")
   }
 
 }

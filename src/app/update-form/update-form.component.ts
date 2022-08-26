@@ -87,7 +87,7 @@ export class UpdateFormComponent implements OnInit, OnDestroy {
     console.table(this.dataToUpdate);
     if(!!this.dataToUpdate){
       this.form.setValue({
-        [UpdateFormControlsEnum.JOB_NUMBER]: this.dataToUpdate[4],
+        [UpdateFormControlsEnum.JOB_NUMBER]: this.dataToUpdate[8],
         [UpdateFormControlsEnum.PRIORITY]: this.dataToUpdate[5],
         [UpdateFormControlsEnum.TYPE]: this.dataToUpdate[6],
         [UpdateFormControlsEnum.LINE]: this.dataToUpdate[7],
