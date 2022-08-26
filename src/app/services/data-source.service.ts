@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class DataSourceService {
-  BASE_URL = 'http://14.143.45.236:97';
+  BASE_URL = 'https://14.143.45.236:97';
   constructor(private http: HttpClient) {}
 
   getUsers(params: any) {
