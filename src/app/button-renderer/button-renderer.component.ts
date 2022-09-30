@@ -13,6 +13,7 @@ export class ButtonRendererComponent  implements ICellRendererAngularComp {
   htmlString : string ;
   seqNo : string;
   callUrl: string ;
+  currentClass : any = this ;
 
   agInit(params:any): void {
     this.params = params;
@@ -28,11 +29,12 @@ export class ButtonRendererComponent  implements ICellRendererAngularComp {
 
   onClick($event:any, seqNo : any) {
     console.log("click");
-
+    debugger;
     if( this.callUrl.indexOf('javascript') > -1){
-      let methodName = this.callUrl.replace("javascript:",'');
-      const F = new Function(methodName);  
-      F();
+      let methodName = this.callUrl.replace("javascript:",'').replace("()",'');
+      //const F = new Function(methodName);  
+      this.currentClass[methodName]([]);
+      //F();
     }else{
       if (this.params.onClick instanceof Function) {
         // put anything into params u want pass into the parents component
@@ -51,8 +53,9 @@ export class ButtonRendererComponent  implements ICellRendererAngularComp {
     
   }
 
-  DeletePendingJob(){
-    console.log("Delete pending job")
+  DeletePendingJob(variables : any[] ){
+    console.log("DeletePendingJob");
+    console.log(variables);
   }
 
 }

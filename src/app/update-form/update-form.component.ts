@@ -87,19 +87,19 @@ export class UpdateFormComponent implements OnInit, OnDestroy {
     console.table(this.dataToUpdate);
     if(!!this.dataToUpdate){
       this.form.setValue({
-        [UpdateFormControlsEnum.JOB_NUMBER]: this.dataToUpdate[8],
-        [UpdateFormControlsEnum.PRIORITY]: this.dataToUpdate[5],
-        [UpdateFormControlsEnum.TYPE]: this.dataToUpdate[6],
-        [UpdateFormControlsEnum.LINE]: this.dataToUpdate[7],
-        [UpdateFormControlsEnum.MACHINE_CODE]: this.dataToUpdate[8],
-        [UpdateFormControlsEnum.MACHINE_NAME]: this.dataToUpdate[9],
-        [UpdateFormControlsEnum.OCC_DATE]: this.dataToUpdate[10],
-        [UpdateFormControlsEnum.OCC_TIME]: this.dataToUpdate[11],
-        [UpdateFormControlsEnum.TR]: this.dataToUpdate[12],
-        [UpdateFormControlsEnum.JOB_DESC]: this.dataToUpdate[13],
-        [UpdateFormControlsEnum.SHOP]: this.dataToUpdate[14],
-        [UpdateFormControlsEnum.JOB_INITIATED_BY]: this.dataToUpdate[15],
-        [UpdateFormControlsEnum.USER_ID]: this.dataToUpdate[16],
+        [UpdateFormControlsEnum.JOB_NUMBER]: this.dataToUpdate["JobNo1"],
+        [UpdateFormControlsEnum.PRIORITY]: this.dataToUpdate["IMP"],
+        [UpdateFormControlsEnum.TYPE]: this.dataToUpdate["JobType"],
+        [UpdateFormControlsEnum.LINE]: "",
+        [UpdateFormControlsEnum.MACHINE_CODE]: this.dataToUpdate["MachineCode"],
+        [UpdateFormControlsEnum.MACHINE_NAME]: this.dataToUpdate["MachineName"],
+        [UpdateFormControlsEnum.OCC_DATE]: "01/01/2022",
+        [UpdateFormControlsEnum.OCC_TIME]: this.dataToUpdate["OccTime"],
+        [UpdateFormControlsEnum.TR]: this.dataToUpdate["TradeDept"],
+        [UpdateFormControlsEnum.JOB_DESC]: this.dataToUpdate["JobDescription"],
+        [UpdateFormControlsEnum.SHOP]: "",
+        [UpdateFormControlsEnum.JOB_INITIATED_BY]: this.dataToUpdate["JobInitiatedBy"],
+        [UpdateFormControlsEnum.USER_ID]: this.dataToUpdate["Userid"],
       });
     }
   }

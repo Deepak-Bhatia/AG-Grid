@@ -189,9 +189,6 @@ export class CustomGridComponent implements OnInit {
     alert(`Selected nodes: ${selectedDataStringPresentation}`);
   }
 
-  DeletePendingJob(){
-    console.log("Delete pending job")
-  }
 
   exportAsXLSX(): void {
     //TODO: Calculte Grid Data
@@ -209,6 +206,7 @@ export class CustomGridComponent implements OnInit {
       this.dataSourceService.getUsers(tempParams).subscribe((data: any) => {
         //console.log(data);
         //let exportData = this.mapToExportData(data['data']);
+        data['records'] =  data['records'].map(function(item : any) {  delete item.RowNumber ;  	delete item.TotalRows	 ; delete item.TotalDisplayRows    ;  return item; });
         this.excelService.exportAsExcelFile(data['records'], 'Grid');
       });
     } else {
